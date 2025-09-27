@@ -39,6 +39,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Employee Attendance Management - Login</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
 body { background: url("images/bg.jpg") no-repeat center center fixed; background-size: cover; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: relative; }
@@ -53,7 +55,28 @@ body::before { content: ""; position: absolute; inset: 0; background: rgba(230, 
 .extra-links { margin-top: 15px; }
 .extra-links a { font-size: 0.9rem; color: #39bfbf; text-decoration: none; margin: 0 8px; }
 .extra-links a:hover { text-decoration: underline; }
-
+.input-icon {
+  position: absolute;
+  left: 15px;
+  top: 70%;
+  transform: translateY(-50%);
+  color: #888;
+}
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 70%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+}
+.toggle-password:hover,
+.input-icon:hover {
+  color: #39bfbf;
+}
+.form-control.ps-5 {
+  padding-left: 40px; /* space for left icon */
+}
 </style>
 </head>
 <body>
@@ -67,6 +90,7 @@ body::before { content: ""; position: absolute; inset: 0; background: rgba(230, 
       <h2>Welcome</h2>
       <p>Employee Attendance Management System</p>
     </div>
+
     <!-- Right Panel -->
     <div class="col-md-6 right-panel">
       <!-- Tabs -->
@@ -85,15 +109,19 @@ body::before { content: ""; position: absolute; inset: 0; background: rgba(230, 
         <!-- Employee Login -->
         <div class="tab-pane fade show active" id="employee" role="tabpanel">
           <form method="post">
-            <input type="hidden" name="role" value="EMPLOYEE">
-            <div class="mb-3">
-              <label class="form-label">Username</label>
-              <input type="text" class="form-control" name="username" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input type="password" class="form-control" name="password" required>
-            </div>
+                <input type="hidden" name="role" value="EMPLOYEE">
+				<div class="mb-3 position-relative">
+				  <label class="form-label">Username</label>
+				  <input type="text" class="form-control ps-5" name="username" required>
+				  <i class="fa-solid fa-user input-icon"></i>
+				</div>
+				<div class="mb-3 position-relative">
+				  <label class="form-label">Password</label>
+				  <input type="password" class="form-control ps-5" name="password" id="empPassword" required>
+				  <i class="fa-solid fa-lock input-icon"></i>
+				  <i class="fa-solid fa-eye toggle-password" toggle="#empPassword"></i>
+				</div>
+		   
             <div class="d-grid">
               <button type="submit" class="btn btn-login">Login</button>
             </div>
@@ -103,15 +131,18 @@ body::before { content: ""; position: absolute; inset: 0; background: rgba(230, 
         <!-- HR Login -->
         <div class="tab-pane fade" id="hr" role="tabpanel">
           <form method="post">
-            <input type="hidden" name="role" value="HR">
-            <div class="mb-3">
-              <label class="form-label">HR Username</label>
-              <input type="text" class="form-control" name="username" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input type="password" class="form-control" name="password" required>
-            </div>
+                <input type="hidden" name="role" value="HR">
+			    <div class="mb-3 position-relative">
+			      <label class="form-label">Username</label>
+			      <input type="text" class="form-control ps-5" name="username" required>
+			      <i class="fa-solid fa-user input-icon"></i>
+			    </div>
+			    <div class="mb-3 position-relative">
+			      <label class="form-label">Password</label>
+			      <input type="password" class="form-control ps-5" name="password" id="hrPassword" required>
+			      <i class="fa-solid fa-lock input-icon "></i>
+			      <i class="fa-solid fa-eye toggle-password" toggle="#hrPassword"></i>
+			    </div>		
             <div class="d-grid">
               <button type="submit" class="btn btn-login">Login</button>
             </div>
@@ -127,6 +158,22 @@ body::before { content: ""; position: absolute; inset: 0; background: rgba(230, 
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.querySelectorAll(".toggle-password").forEach(function (icon) {
+  icon.addEventListener("click", function () {
+    const input = document.querySelector(this.getAttribute("toggle"));
+    if (input.type === "password") {
+      input.type = "text";
+      this.classList.remove("fa-eye");
+      this.classList.add("fa-eye-slash");
+    } else {
+      input.type = "password";
+      this.classList.remove("fa-eye-slash");
+      this.classList.add("fa-eye");
+    }
+  });
+});
+</script>
+
 </body>
 </html>

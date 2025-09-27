@@ -100,28 +100,39 @@
 </head>
 <body>
 
-<!-- Sidebar -->
+  <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <button class="toggle-btn" id="toggle-btn"><i class="fa-solid fa-arrow-left"></i></button>
+    <button class="toggle-btn" id="toggle-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
     <div class="logo-container">
       <div class="logo-text"><img src="images/logo.png"></div>
       <div class="logo-tagline">Your Punctual Partner for Workforce<br>Management</div>
     </div>
     <div class="menu">
-  <a href="EmployeeDashboard.html"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
-  <a href="EmpProfile.html"><i class="fa-solid fa-user"></i> <span>Profile</span></a>
-  <a href="attendance.jsp"><i class="fa-solid fa-calendar-check"></i> <span>Attendance</span></a>
-  <a href="LeaveRequest.html"><i class="fa-solid fa-plane-departure"></i> <span>Leave Request</span></a>
-  <a href="EmpPaySlip.html"><i class="fa-solid fa-file-invoice-dollar"></i> <span>My Payslips</span></a>
-  <a href="OtRequest.html"><i class="fa-solid fa-stopwatch me-2"></i> <span>OT Request</span></a>
-</div>
+      <a href="hr_dashboard.jsp"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
+      <a href="LoginReport.html"><i class="fa-solid fa-clipboard-check"></i> <span>Login Report</span></a>
 
+      <!-- Employee Management with Submenu -->
+      <a data-bs-toggle="collapse" href="#empSubmenu" role="button" aria-expanded="false" aria-controls="empSubmenu">
+        <i class="fa-solid fa-users-gear me-2"></i> <span>Employee Management</span>
+      </a>
+      <div class="collapse submenu" id="empSubmenu">
+        <a href="Onboarding.jsp"><i class="fa-solid fa-user-plus me-2"></i> Onboarding Employee</a>
+        <a href="EmployeeList.jsp"><i class="fa-solid fa-id-card me-2"></i> List Employee</a>
+      </div>
 
-    <a href="#" class="logout" id="logoutBtn">
+      <a href="LeaveApproval.html"><i class="fa-solid fa-user-check"></i> <span>Leave Approval</span></a>
+      <a href="PayRoll.html"><i class="fa-solid fa-money-check-dollar"></i> <span>Payroll</span></a>
+      <a href="OtApproval.html"><i class="fa-solid fa-stopwatch me-2"></i> <span>Overtime Approval</span></a>
+      <a href="Holiday.html"><i class="fa-solid fa-calendar-days"></i> <span>Holidays</span></a>
+    </div>
+
+    <!-- Logout Button -->
+   <a href="#" class="logout" id="logoutBtn">
   <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
 </a>
   </div>
-
   <!-- Main Content -->
   <main class="content" id="main">
     <div class="card">
@@ -134,14 +145,19 @@
           <!-- Login Credentials -->
           <h6 class="mb-2">Login Credentials</h6>
           <div class="row g-3 mb-4">
+          
             <div class="col-md-4">
               <label class="form-label">Username *</label>
               <input type="text" name="username" class="form-control" required>
             </div>
+            
             <div class="col-md-4">
               <label class="form-label">Password *</label>
-              <input type="password" name="password_hash" class="form-control" required>
+              <input type="password" name="password_hash" class="form-control" required  minlength="6"
+         	title="Password must be at least 6 characters long">
+  			<div class="invalid-feedback">Password must be at least 6 characters long.</div>
             </div>
+            
             <div class="col-md-4">
 		  <label class="form-label">Role</label>
 		  <select name="role" class="form-select">
@@ -157,12 +173,27 @@
           <!-- Identity -->
           <h6 class="mb-2">Identity Information</h6>
           <div class="row g-3 mb-4">
-            <div class="col-md-6"><label class="form-label">First Name *</label>
-              <input type="text" name="first_name" class="form-control" required></div>
-            <div class="col-md-6"><label class="form-label">Last Name *</label>
-              <input type="text" name="last_name" class="form-control" required></div>
+            <div class="col-md-6">
+			  <label class="form-label">First Name *</label>
+			  <input type="text" name="first_name" class="form-control"
+			         required pattern="[A-Za-z]+"
+			         title="Enter alphabets only, e.g., John">
+			  <div class="invalid-feedback">Please enter a valid first name (letters only).</div>
+			</div>
+			
+			<div class="col-md-6">
+			  <label class="form-label">Last Name *</label>
+			  <input type="text" name="last_name" class="form-control"
+			         required pattern="[A-Za-z]+"
+			         title="Enter alphabets only, e.g., Doe">
+			  <div class="invalid-feedback">Please enter a valid last name (letters only).</div>
+			</div>
+			
             <div class="col-md-4"><label class="form-label">Date of Birth *</label>
-              <input type="date" name="dob" class="form-control" required></div>
+              <input type="date" name="dob" class="form-control" required title="Enter DOB as (DD/MM/YYYY)">
+            <div class="invalid-feedback">Please enter a valid DOB (DD/MM/YYYY).</div>
+              </div>
+
             <div class="col-md-4"><label class="form-label">Gender *</label>
               <select name="gender" class="form-select" required>
                 <option value="">Select</option><option>Male</option><option>Female</option><option>Other</option>
@@ -195,7 +226,10 @@
                     <div class="col-md-6"><label class="form-label">Email *</label>
                       <input type="email" name="email" class="form-control" required></div>
                     <div class="col-md-6"><label class="form-label">Phone *</label>
-                      <input type="tel" name="phone" class="form-control" pattern="[0-9]{10}" required></div>
+                      <input type="tel" name="phone" class="form-control" required pattern="[0-9]{10}"
+         			title="Enter a 10-digit mobile number without spaces or +91">
+  					<div class="invalid-feedback">Enter a valid 10-digit phone number.</div>
+  					</div>
                     <div class="col-md-6"><label class="form-label">Address Line 1</label>
                       <input type="text" name="address_line1" class="form-control"></div>
                     <div class="col-md-6"><label class="form-label">Address Line 2</label>
@@ -235,7 +269,9 @@
                     <div class="col-md-4"><label class="form-label">Relation</label>
                       <input type="text" name="emergency_relation" class="form-control"></div>
                     <div class="col-md-4"><label class="form-label">Phone</label>
-                      <input type="tel" name="emergency_phone" class="form-control" pattern="[0-9]{10}"></div>
+                      <input type="tel" name="emergency_phone" class="form-control"  pattern="[0-9]{10}"
+         title="Enter a 10-digit mobile number without spaces or +91">
+  <div class="invalid-feedback">Enter a valid 10-digit phone number.</div></div>
                   </div>
                 </div>
               </div>
@@ -259,34 +295,38 @@
          data-bs-parent="#employeeAccordion">
       <div class="accordion-body">
                   <div class="row g-3">
-                    <div class="col-md-4"><label class="form-label">Date of Joining *</label>
-                      <input type="date" name="date_of_joining" class="form-control" required></div>
+                   
+                      <div class="col-md-4"><label class="form-label">Date of Joining *</label>
+              <input type="date" name="dob" class="form-control" required title="Enter DOJ as (DD/MM/YYYY)">
+            <div class="invalid-feedback">Please enter a valid DOJ (DD/MM/YYYY).</div>
+              </div>
                     <div class="col-md-4"><label class="form-label">Employment Type *</label>
                       <select name="employment_type" class="form-select" required>
                         <option value="">Select</option><option>Permanent</option><option>Contract</option><option>Part-time</option>
                       </select></div>
                     
                       <div class="col-md-4">
-		  <label class="form-label">Designation</label>
-		  <select name="designation" class="form-select">
-		    <option>Select</option>
-		    <option>Manager</option>
-		    <option>Developer</option>
-		   
-		  </select>
-		</div>
-                    <div class="col-md-4"><label class="form-label">Shift</label>
+				  		<label class="form-label">Designation</label>
+				  		<select name="designation" class="form-select">
+						<option value="">Select</option><option value="1">Manager</option><option value="2">Analyst</option><option value="3">Designer</option>
+                     	<option value="4">Developer</option> <option value="5">Intern</option> <option value="6">HR</option>
+				 		 </select>
+					</div>
+		            <div class="col-md-4"><label class="form-label">Shift</label>
                       <select name="shift_id" class="form-select">
-                        <option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                        <option value="">Select</option><option value="1">General</option><option value="2">Morning</option><option value="3">Night</option>
                       </select></div>
                     <div class="col-md-4"><label class="form-label">Salary Structure</label>
                       <select name="structure_id" class="form-select">
-                        <option value="">Select</option><option value="1">1</option><option value="2">2</option>
+                        <option value="">Select</option><option value="1">Manager</option><option value="2">Analyst</option><option value="3">Designer</option>
+                     <option value="4">Developer</option> <option value="5">Intern</option> <option value="6">HR</option>
                       </select>
                      </div>
                      
-					   <div class="col-md-4"><label class="form-label">Team ID</label>
-                      <input type="text" name="team_id" class="form-control">
+					   <div class="col-md-4"><label class="form-label">Teams</label>
+                      <select  name="team_name" class="form-select">
+                      <option value="">Select</option><option value="1"> Software Development</option><option value="2">Quality Assurance</option><option value="3">Human Resources</option>
+                      </select>
                       </div>
 					
                   </div>
@@ -317,12 +357,29 @@
                       <input type="text" name="account_number" class="form-control"></div>
                     <div class="col-md-6"><label class="form-label">IFSC Code</label>
                       <input type="text" name="ifsc_code" class="form-control"></div>
-                    <div class="col-md-6"><label class="form-label">UAN Number *</label>
-                      <input type="text" name="uan_number" class="form-control" ></div>
-                    <div class="col-md-6"><label class="form-label">PAN Number</label>
-                      <input type="text" name="pan_number" class="form-control"></div>
-                    <div class="col-md-6"><label class="form-label">Aadhar Number</label>
-                      <input type="text" name="aadhar_number" class="form-control"></div>
+                    <div class="col-md-6">
+					  <label class="form-label">UAN Number *</label>
+					  <input type="text" name="uan_number" class="form-control"
+					         required pattern="[0-9]{12}"
+					         title="Enter 12-digit Universal Account Number">
+					  <div class="invalid-feedback">Enter a valid 12-digit UAN number.</div>
+					</div>
+					
+					<div class="col-md-6">
+					  <label class="form-label">PAN Number *</label>
+					  <input type="text" name="pan_number" class="form-control"
+					         pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+					         title="Enter 10-character PAN (e.g., ABCDE1234F)">
+					  <div class="invalid-feedback">Enter a valid PAN number (ABCDE1234F).</div>
+					</div>
+					
+					<div class="col-md-6">
+					  <label class="form-label">Aadhar Number *</label>
+					  <input type="text" name="aadhar_number" class="form-control"
+					         pattern="[0-9]{12}"
+					         title="Enter 12-digit Aadhaar number">
+					  <div class="invalid-feedback">Enter a valid 12-digit Aadhaar number.</div>
+					</div>
                   </div>
                 </div>
               </div>

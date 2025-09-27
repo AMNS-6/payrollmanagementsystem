@@ -202,37 +202,38 @@
 </head>
 <body>
   <!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-  <button class="toggle-btn" id="toggle-btn">
-    <i class="fa-solid fa-arrow-left"></i>
-  </button>
-  <div class="logo-container">
-    <div class="logo-text"><img src="images/left.png"></div>
-    <div class="logo-tagline">Your Punctual Partner for Workforce<br>Management</div>
-  </div>
-  <div class="menu">
-    <a href="HrDashBoard.html"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
-    <a href="LoginReport.html"><i class="fa-solid fa-clipboard-check"></i> <span>Login Report</span></a>
+  <div class="sidebar" id="sidebar">
+    <button class="toggle-btn" id="toggle-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    <div class="logo-container">
+      <div class="logo-text"><img src="images/logo.png"></div>
+      <div class="logo-tagline">Your Punctual Partner for Workforce<br>Management</div>
+    </div>
+    <div class="menu">
+      <a href="hr_dashboard.jsp"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
+      <a href="LoginReport.html"><i class="fa-solid fa-clipboard-check"></i> <span>Login Report</span></a>
 
-    <!-- Employee Management with Submenu -->
-    <a data-bs-toggle="collapse" href="#empSubmenu" role="button" aria-expanded="false" aria-controls="empSubmenu">
-      <i class="fa-solid fa-users-gear me-2"></i> <span>Employee Management</span>
-    </a>
-    <div class="collapse submenu" id="empSubmenu">
-      <a href="Onboarding.html"><i class="fa-solid fa-user-plus me-2"></i> Onboarding Employee</a>
-      <a href="EmployeeList.html"><i class="fa-solid fa-id-card me-2"></i> List Employee</a>
+      <!-- Employee Management with Submenu -->
+      <a data-bs-toggle="collapse" href="#empSubmenu" role="button" aria-expanded="false" aria-controls="empSubmenu">
+        <i class="fa-solid fa-users-gear me-2"></i> <span>Employee Management</span>
+      </a>
+      <div class="collapse submenu" id="empSubmenu">
+        <a href="Onboarding.jsp"><i class="fa-solid fa-user-plus me-2"></i> Onboarding Employee</a>
+        <a href="EmployeeList.jsp"><i class="fa-solid fa-id-card me-2"></i> List Employee</a>
+      </div>
+
+      <a href="LeaveApproval.html"><i class="fa-solid fa-user-check"></i> <span>Leave Approval</span></a>
+      <a href="PayRoll.html"><i class="fa-solid fa-money-check-dollar"></i> <span>Payroll</span></a>
+      <a href="OtApproval.html"><i class="fa-solid fa-stopwatch me-2"></i> <span>Overtime Approval</span></a>
+      <a href="Holiday.html"><i class="fa-solid fa-calendar-days"></i> <span>Holidays</span></a>
     </div>
 
-    <a href="LeaveApproval.html"><i class="fa-solid fa-user-check"></i> <span>Leave Approval</span></a>
-    <a href="PayRoll.html"><i class="fa-solid fa-money-check-dollar"></i> <span>Payroll</span></a>
-    <a href="OtApproval.html"><i class="fa-solid fa-stopwatch me-2"></i> <span>Overtime Approval</span></a>
-    <a href="Holiday.html"><i class="fa-solid fa-calendar-days"></i> <span>Holidays</span></a>
+    <!-- Logout Button -->
+   <a href="#" class="logout" id="logoutBtn">
+  <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
+</a>
   </div>
-
-  <!-- Logout Button at bottom -->
-  <a href="#" class="logout"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></a>
-</div>
-
   <!-- Main Content -->
   <div class="main-content">
     <div id="controls" class="d-flex justify-content-between align-items-center mb-3">

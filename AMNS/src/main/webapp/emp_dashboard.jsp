@@ -7,6 +7,8 @@
         return;
     }
     
+    
+    
     String message = "";
     if ("POST".equalsIgnoreCase(request.getMethod())) {
         AttendanceDAO dao = new AttendanceDAOImpl();
@@ -58,16 +60,49 @@
 
     /* Sidebar */
     .sidebar {
-      height:100vh; background:#39bfbf; color:white;
-      position:fixed; top:0; left:0; width:300px;
-      padding-top:30px; box-sizing:border-box;
-      display:flex; flex-direction:column; justify-content:space-between;
-      transition:width 0.3s ease; overflow:hidden; text-align:center;
+      height:100vh; 
+      background:#39bfbf; 
+      color:white;
+      position:fixed;
+      top:0; 
+      left:0; 
+      width:300px;
+      padding-top:30px; 
+      box-sizing:border-box;
+      display:flex; 
+      flex-direction:column; 
+      justify-content:space-between;
+      transition:width 0.3s ease; 
+      overflow:hidden; 
+      text-align:center;
     }
-    .sidebar.collapsed { width:70px; }
-    .logo-text img { width:120px; height:auto; }
-    .logo-tagline { font-size:12px; color:#fff; margin-top:6px; font-weight:400; }
-    .sidebar.collapsed .logo-text, .sidebar.collapsed .logo-tagline { display:none; }
+    .sidebar.collapsed { 
+    width:70px;
+     }
+      /* Logo */
+    .logo-container {
+      margin-bottom: 20px;
+    }
+     
+    .logo-text img { 
+    width:120px; 
+    height:auto;
+     }
+    .logo-tagline { 
+    font-size:12px; 
+    color:#fff; 
+    margin-top:6px; 
+    font-weight:400;
+    line-weight:1.3;
+     }
+    .sidebar.collapsed .logo-text,
+     .sidebar.collapsed .logo-tagline { 
+     display:none; 
+     }
+     .menu {
+      flex-grow: 1;
+      text-align: left;
+    }
     .sidebar a {
       display:flex; align-items:center; gap:12px; color:#fff;
       padding:14px 20px; text-decoration:none; font-size:16px;
@@ -121,12 +156,12 @@
       <div class="logo-tagline">Your Punctual Partner for Workforce<br>Management</div>
     </div>
     <div class="menu">
-  <a href="EmployeeDashboard.html"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
+  <a href="emp_dashboard.jsp"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
   <a href="EmpProfile.html"><i class="fa-solid fa-user"></i> <span>Profile</span></a>
   <a href="attendance.jsp"><i class="fa-solid fa-calendar-check"></i> <span>Attendance</span></a>
   <a href="LeaveRequest.html"><i class="fa-solid fa-plane-departure"></i> <span>Leave Request</span></a>
   <a href="EmpPaySlip.html"><i class="fa-solid fa-file-invoice-dollar"></i> <span>My Payslips</span></a>
-  <a href="OtRequest.html"><i class="fa-solid fa-stopwatch me-2"></i> <span>OT Request</span></a>
+  <a href="OtRequest.jsp"><i class="fa-solid fa-stopwatch me-2"></i> <span>OT Request</span></a>
 </div>
 
 
