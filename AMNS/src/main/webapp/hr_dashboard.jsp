@@ -289,7 +289,7 @@
     </div>
     <div class="menu">
       <a href="hr_dashboard.jsp"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
-      <a href="LoginReport.html"><i class="fa-solid fa-clipboard-check"></i> <span>Login Report</span></a>
+      <a href="LoginReport.jsp"><i class="fa-solid fa-clipboard-check"></i> <span>Login Report</span></a>
 
       <!-- Employee Management with Submenu -->
       <a data-bs-toggle="collapse" href="#empSubmenu" role="button" aria-expanded="false" aria-controls="empSubmenu">

@@ -55,12 +55,12 @@
       <div class="logo-tagline">Your Punctual Partner for Workforce<br>Management</div>
     </div>
     <div class="menu">
-        <a href="EmployeeDashboard.html"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
+        <a href="emp_dashboard.jsp"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
         <a href="EmpProfile.html"><i class="fa-solid fa-user"></i> <span>Profile</span></a>
-        <a href="Attendance.html"><i class="fa-solid fa-calendar-check"></i> <span>Attendance</span></a>
+        <a href="attendance.jsp"><i class="fa-solid fa-calendar-check"></i> <span>Attendance</span></a>
         <a href="LeaveRequest.html"><i class="fa-solid fa-leaf"></i> <span>Leave Request</span></a>
         <a href="EmpPaySlip.html"><i class="fa-solid fa-file-invoice"></i> <span>My Payslips</span></a>
-        <a href="OTRequest.html" class="active"><i class="fa-solid fa-stopwatch me-2"></i> <span>OT Request</span></a>
+        <a href="OTRequest.jsp" class="active"><i class="fa-solid fa-stopwatch me-2"></i> <span>OT Request</span></a>
     </div>
     <a href="#" class="logout"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></a>
   </div>

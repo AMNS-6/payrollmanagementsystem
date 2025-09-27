@@ -121,4 +121,101 @@ public class AttendanceDAOImpl implements AttendanceDAO {
             e.printStackTrace();
         }
     }
+    @Override
+    public AttendanceSummaryDTO getAttendanceSummary(int userId, int year, int month) {
+        AttendanceSummaryDTO summary = new AttendanceSummaryDTO();
+
+        try (Connection conn = ConnectionFactory.getConnection()) {
+            // convert userId → empId
+            int empId = getEmpIdByUserId(userId, conn);
+            if (empId == -1) {
+                System.out.println("No empId found for userId: " + userId);
+                return summary;
+            }
+
+            String proc = "{CALL sp_calc_attendance_counts(?,?,?,?,?,?,?,?)}";
+            try (CallableStatement cs = conn.prepareCall(proc)) {
+                cs.setInt(1, empId);
+                cs.setInt(2, year);
+                cs.setInt(3, month);
+
+                cs.registerOutParameter(4, Types.INTEGER); // total_days
+                cs.registerOutParameter(5, Types.INTEGER); // present_days
+                cs.registerOutParameter(6, Types.INTEGER); // leave_days
+                cs.registerOutParameter(7, Types.INTEGER); // holiday_days
+                cs.registerOutParameter(8, Types.INTEGER); // absent_days
+
+                cs.execute();
+
+                summary.setTotalDays(cs.getInt(4));
+                summary.setPresentDays(cs.getInt(5));
+                summary.setLeaveDays(cs.getInt(6));
+                summary.setHolidayDays(cs.getInt(7));
+                summary.setAbsentDays(cs.getInt(8));
+            }
+
+            // get overtime
+            String sql = "SELECT IFNULL(SUM(overtime_hours),0) FROM Attendance " +
+                         "WHERE emp_id=? AND YEAR(attendance_date)=? AND MONTH(attendance_date)=?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, empId);
+                ps.setInt(2, year);
+                ps.setInt(3, month);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    summary.setOvertimeHours(rs.getDouble(1));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return summary;
+    }
+    @Override
+    public boolean processAttendanceForAll(String date) {
+        String sql = "{CALL sp_process_attendance_for_all(?)}";
+        try (Connection conn = ConnectionFactory.getConnection();
+             CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setString(1, date);
+            cs.execute();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    @Override
+    public List<AttendanceBean> getAllAttendance() {
+        List<AttendanceBean> list = new ArrayList<>();
+        String sql = "SELECT a.*, e.first_name, e.last_name " +
+                     "FROM Attendance a " +
+                     "JOIN Employee_Master e ON a.emp_id = e.emp_id " +
+                     "ORDER BY a.attendance_date DESC";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                AttendanceBean ab = new AttendanceBean();
+                ab.setAttendanceId(rs.getInt("attendance_id"));
+                ab.setEmpId(rs.getInt("emp_id"));
+                ab.setEmpName(rs.getString("first_name") + " " + rs.getString("last_name"));
+                ab.setAttendanceDate(rs.getDate("attendance_date"));
+                ab.setFirstIn(rs.getTimestamp("first_in"));
+                ab.setLastOut(rs.getTimestamp("last_out"));
+                ab.setTotalWorkHours(rs.getDouble("total_work_hours"));
+                ab.setOvertimeHours(rs.getDouble("overtime_hours"));
+                ab.setStatus(rs.getString("status"));
+                list.add(ab);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    
+
 }
