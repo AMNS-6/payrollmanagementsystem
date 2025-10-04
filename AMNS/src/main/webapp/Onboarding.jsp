@@ -298,8 +298,8 @@
                   <div class="row g-3">
                    
                       <div class="col-md-4"><label class="form-label">Date of Joining *</label>
-              <input type="date" name="dob" class="form-control" required title="Enter DOJ as (DD/MM/YYYY)">
-            <div class="invalid-feedback">Please enter a valid DOJ (DD/MM/YYYY).</div>
+              <input type="date" name="dob" class="form-control"  title="Enter DOJ as (DD/MM/YYYY)">
+            <div class="">Please enter a valid DOJ (DD/MM/YYYY).</div>
               </div>
                     <div class="col-md-4"><label class="form-label">Employment Type *</label>
                       <select name="employment_type" class="form-select" required>
