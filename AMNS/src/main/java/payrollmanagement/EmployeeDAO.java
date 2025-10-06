@@ -7,6 +7,7 @@ import java.util.Map;
 public interface EmployeeDAO {
     int onboardEmployee(EmployeeBean emp) throws Exception;
     public EmployeeBean getEmployeeById(int empId);
+    EmployeeBean getEmployeeByUserId(int userId) throws Exception;
     public EmployeeBean getEmployeeByUsername(String username) ;
     public int updateEmployee(EmployeeBean emp);
     public  List<EmployeeBean> getAllEmployees();

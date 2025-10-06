@@ -7,8 +7,16 @@ public class EmployeeBean {
     private String password_hash;
     private String role;
     private int EmpId;
+    private int userId;
+
 
    
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	// Identity
     private String first_name;
     private String last_name;

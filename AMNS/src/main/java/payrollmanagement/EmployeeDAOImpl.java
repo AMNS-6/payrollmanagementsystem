@@ -386,7 +386,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
              PreparedStatement ps = con.prepareStatement("SELECT structure_id, structure_name FROM Salary_Structure")) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                map.put(rs.getInt("structure_id"), rs.getString("structure_name"));
+                map.put(rs.getInt("structure_id"), 
+                		rs.getString("structure_name"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -394,5 +395,30 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         return map;
     }
 
+    @Override
+    public EmployeeBean getEmployeeByUserId(int userId) throws Exception {
+        EmployeeBean emp = null;
+        String sql = "SELECT * FROM employee_master WHERE user_id = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    emp = new EmployeeBean();
+                    emp.setEmpId(rs.getInt("emp_id"));
+                    emp.setUserId(rs.getInt("user_id"));
+                    emp.setFirst_name(rs.getString("first_name"));
+                    emp.setLast_name(rs.getString("last_name"));
+                    emp.setEmail(rs.getString("email"));
+                    emp.setDesignation(rs.getString("designation"));
+                    emp.setTeam_id(rs.getInt("team_id"));
+                    
+                }
+            }
+        }
+        return emp;
+    }
 
 }

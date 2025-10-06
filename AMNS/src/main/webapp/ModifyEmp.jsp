@@ -166,7 +166,7 @@
     <input type="hidden" name="empId" value="<%=emp.getEmpId()%>">
 
     <!-- Login Info -->
-    <h5 class="mb-3">Login Info</h5>
+    <h5 class="mb-3">Login Information</h5>
     <div class="row mb-3">
         <div class="col-md-4">
             <label class="form-label">Username</label>
@@ -178,18 +178,18 @@
         </div>
         <div class="col-md-4">
             <label class="form-label">Role</label>
-            <input type="text" name="role" value="<%=emp.getRole()%>" class="form-control" readonly>
+            <input type="text" name="role" value="<%=emp.getRole()%>" class="form-control" >
         </div>
     </div>
 
     <!-- Identity -->
-    <h5 class="mb-3">Identity</h5>
+    <h5 class="mb-3">Identity Information</h5>
     <div class="row mb-3">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <label class="form-label">First Name</label>
             <input type="text" name="first_name" value="<%=emp.getFirst_name()%>" class="form-control">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <label class="form-label">Last Name</label>
             <input type="text" name="last_name" value="<%=emp.getLast_name()%>" class="form-control">
         </div>
@@ -197,11 +197,14 @@
             <label class="form-label">Date of Birth</label>
             <input type="date" name="dob" value="<%=emp.getDob()%>" class="form-control">
         </div>
-        <select name="gender" class="form-control">
-  <option value="Male" <%= "Male".equals(emp.getGender()) ? "selected" : "" %>>Male</option>
-  <option value="Female" <%= "Female".equals(emp.getGender()) ? "selected" : "" %>>Female</option>
-  <option value="Other" <%= "Other".equals(emp.getGender()) ? "selected" : "" %>>Other</option>
-</select>
+        <div class="col-md-4 mt-2">
+            <label class="form-label">Gender</label>
+        	<select name="gender" class="form-select">
+  			<option value="Male" <%= "Male".equals(emp.getGender()) ? "selected" : "" %>>Male</option>
+  			<option value="Female" <%= "Female".equals(emp.getGender()) ? "selected" : "" %>>Female</option>
+  			<option value="Other" <%= "Other".equals(emp.getGender()) ? "selected" : "" %>>Other</option>
+			</select>
+ 		</div>
 
         <div class="col-md-4 mt-2">
             <label class="form-label">Marital Status</label>
@@ -210,7 +213,7 @@
     </div>
 
     <!-- Contact -->
-    <h5 class="mb-3">Contact</h5>
+    <h5 class="mb-3">Contact Information</h5>
     <div class="row mb-3">
         <div class="col-md-4">
             <label class="form-label">Email</label>
@@ -272,7 +275,7 @@
         </div>
 		       <div class="col-md-4">
 		  <label class="form-label">Employment Type</label>
-		  <select name="employment_type" class="form-control">
+		  <select name="employment_type" class="form-select">
 		    <% for (String type : empTypeList) { %>
 		      <option value="<%=type%>" <%= (type.equals(emp.getEmployment_type()) ? "selected" : "") %>>
 		        <%=type%>
@@ -282,7 +285,7 @@
 		</div>
 		        <div class="col-md-4">
 		  <label class="form-label">Designation</label>
-		  <select name="designation" class="form-control">
+		  <select name="designation" class="form-select">
 		    <% for (String d : designationList) { %>
 		      <option value="<%=d%>" <%= (d.equals(emp.getDesignation()) ? "selected" : "") %>>
 		        <%=d%>
@@ -293,7 +296,7 @@
 		
 		        <div class="col-md-4 mt-2">
 		  <label class="form-label">Team</label>
-		  <select name="team_id" class="form-control">
+		  <select name="team_id" class="form-select">
 		    <% for (Map.Entry<Integer, String> t : teamList.entrySet()) { %>
 		      <option value="<%=t.getKey()%>" <%= (t.getKey() == emp.getTeam_id() ? "selected" : "") %>>
 		        <%=t.getValue()%>
@@ -338,7 +341,7 @@
     <div class="row mb-4">
 	        <div class="col-md-4">
 	  <label class="form-label">Shift</label>
-	  <select name="shift_id" class="form-control">
+	  <select name="shift_id" class="form-select">
 	    <% for (Map.Entry<Integer, String> s : shiftList.entrySet()) { %>
 	      <option value="<%=s.getKey()%>" <%= (s.getKey() == emp.getShift_id() ? "selected" : "") %>>
 	        <%=s.getValue()%>
@@ -349,7 +352,7 @@
 	
 	       <div class="col-md-4">
 	  <label class="form-label">Salary Structure</label>
-	  <select name="structure_id" class="form-control">
+	  <select name="structure_id" class="form-select">
 	    <% for (Map.Entry<Integer, String> st : structureList.entrySet()) { %>
 	      <option value="<%=st.getKey()%>" <%= (st.getKey() == emp.getStructure_id() ? "selected" : "") %>>
 	        <%=st.getValue()%>

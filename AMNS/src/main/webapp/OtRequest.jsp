@@ -1,10 +1,67 @@
+<%@ page import="payrollmanagement.UserBean" %>
+<%@ page import="payrollmanagement.EmployeeBean" %>
+<%@ page import="payrollmanagement.EmployeeDAO" %>
+<%@ page import="payrollmanagement.EmployeeDAOImpl" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.sql.*" %>
+
+<%
+    // ✅ Step 1: Verify session
+    UserBean user = (UserBean) session.getAttribute("user");
+    if (user == null || !"EMPLOYEE".equalsIgnoreCase(user.getRole())) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
+    // ✅ Step 2: Fetch employee info
+    EmployeeDAO empDao = new EmployeeDAOImpl();
+    EmployeeBean emp = empDao.getEmployeeByUserId(user.getUserId());
+
+    if (emp == null) {
+        out.println("<h3 style='color:red'>⚠ No employee record found for " + user.getUsername() + "</h3>");
+        return;
+    }
+
+    // ✅ Step 3: Handle form submission
+    String otDate = request.getParameter("otDate");
+    String reason = request.getParameter("reason");
+    String hoursStr = request.getParameter("hours");
+
+    if (otDate != null && reason != null && hoursStr != null) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/amns", "root", "gniharika@4");
+
+            String sql = "INSERT INTO Overtime_Record(emp_id, ot_policy_id, ot_date, reason, hours_worked, status, payout_cycle) "
+                    + "VALUES (?, ?, ?, ?, ?, 'Pending', ?)";
+
+         ps = conn.prepareStatement(sql);
+         ps.setInt(1, emp.getEmpId());
+         ps.setInt(2, 1); // ✅ assuming standard policy = 1
+         ps.setString(3, otDate);
+         ps.setString(4, reason);
+         ps.setDouble(5, Double.parseDouble(hoursStr));
+         ps.setDate(6, new java.sql.Date(System.currentTimeMillis())); // ✅ payout_cycle = current month end or similar
+         ps.executeUpdate();
+        } catch (Exception e) {
+            out.println("<pre style='color:red'>" + e.getMessage() + "</pre>");
+            e.printStackTrace();  // logs in server console
+        } finally {
+            try { if (ps != null) ps.close(); } catch(Exception ex) {}
+            try { if (conn != null) conn.close(); } catch(Exception ex) {}
+        }
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OT Request - Payroll Management</title>
-  <!-- Bootstrap CSS -->
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -18,7 +75,7 @@
 
     /* Sidebar */
     .sidebar { height:100vh; background:#39bfbf; color:white; position:fixed; top:0; left:0; width:300px;
-      padding-top:30px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between;
+      padding-top:30px; display:flex; flex-direction:column; justify-content:space-between;
       transition:width 0.3s ease; overflow:hidden; text-align:center; }
     .sidebar.collapsed { width:70px; }
     .logo-text img { width:120px; height:auto; }
@@ -39,10 +96,7 @@
     /* Main */
     .main { margin-left:300px; padding:20px; transition:margin-left 0.3s; }
     .main.collapsed { margin-left:70px; }
-    .btn-custom {
-    background-color: #39bfbf; /* teal */
-    border: none;
-  }
+    .btn-custom { background-color:#39bfbf; border:none; }
   </style>
 </head>
 <body>
@@ -55,52 +109,54 @@
       <div class="logo-tagline">Your Punctual Partner for Workforce<br>Management</div>
     </div>
     <div class="menu">
-        <a href="emp_dashboard.jsp"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
-        <a href="EmpProfile.html"><i class="fa-solid fa-user"></i> <span>Profile</span></a>
-        <a href="attendance.jsp"><i class="fa-solid fa-calendar-check"></i> <span>Attendance</span></a>
-        <a href="LeaveRequest.html"><i class="fa-solid fa-leaf"></i> <span>Leave Request</span></a>
-        <a href="EmpPaySlip.html"><i class="fa-solid fa-file-invoice"></i> <span>My Payslips</span></a>
-        <a href="OTRequest.jsp" class="active"><i class="fa-solid fa-stopwatch me-2"></i> <span>OT Request</span></a>
+        <a href="emp_dashboard.jsp"><i class="fa-solid fa-gauge"></i> <span>Dashboard</span></a>
+        <a href="EmpProfile.jsp"><i class="fa-solid fa-user"></i> <span>Profile</span></a>
+        <a href="#"><i class="fa-solid fa-calendar-check"></i> <span>Attendance</span></a>
+        <a href="LeaveRequest.jsp"><i class="fa-solid fa-leaf"></i> <span>Leave Request</span></a>
+        <a href="EmpPaySlip.jsp"><i class="fa-solid fa-file-invoice"></i> <span>My Payslips</span></a>
+        <a href="EmpPayRollSummary.jsp"><i class="fa-solid fa-user"></i> <span>Payroll Summary</span></a>
+        <a href="OtRequest.jsp" class="active"><i class="fa-solid fa-clock"></i> <span>OT Request</span></a>
     </div>
-    <a href="#" class="logout"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></a>
+    <a href="LogoutServlet" class="logout"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></a>
   </div>
 
   <!-- Main -->
   <div class="main" id="main">
-    <!-- Top Navbar -->
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2>Overtime Request</h2>
     </div>
 
-    <!-- OT Request Form -->
+    <!-- ✅ OT Request Form -->
     <div class="card p-4 shadow mb-5">
-      <form action="overtime_request_process.php" method="POST">
+      <form action="OtRequest.jsp" method="post">
+
+        <input type="hidden" name="empId" value="<%= emp.getEmpId() %>"/>
+
         <div class="mb-3">
-          <label for="emp_id" class="form-label">Employee ID</label>
-          <input type="number" class="form-control" id="emp_id" name="emp_id" required>
+          <label class="form-label">Employee Name</label>
+          <input type="text" class="form-control" value="<%= emp.getFirst_name() %> <%= emp.getLast_name() %>" readonly>
         </div>
 
         <div class="mb-3">
           <label for="ot_date" class="form-label">Overtime Date</label>
-          <input type="date" class="form-control" id="ot_date" name="ot_date" required>
+          <input type="date" class="form-control" id="ot_date" name="otDate" required>
         </div>
 
         <div class="mb-3">
           <label for="reason" class="form-label">Reason for Overtime</label>
-          <textarea class="form-control" id="reason" name="reason" rows="3"></textarea>
+          <textarea class="form-control" id="reason" name="reason" rows="3" required></textarea>
         </div>
 
         <div class="mb-3">
           <label for="hours_worked" class="form-label">Hours Worked</label>
-          <input type="number" step="0.25" class="form-control" id="hours_worked" name="hours_worked" required>
+          <input type="number" step="0.25" class="form-control" id="hours_worked" name="hours" required>
         </div>
-
 
         <button type="submit" class="btn btn-custom w-100">Submit Request</button>
       </form>
     </div>
 
-    <!-- OT Requests Table -->
+    <!-- ✅ OT Requests Table -->
     <div class="card p-4 shadow">
       <h5 class="mb-3">My Overtime Requests</h5>
       <table class="table table-striped">
@@ -113,31 +169,48 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Sample data (replace with backend data) -->
-          <tr>
-            <td>2025-09-01</td>
-            <td>Urgent deployment</td>
-            <td>5.00</td>
-            <td><span class="badge bg-warning">Pending</span></td>
-          </tr>
-          <tr>
-            <td>2025-08-28</td>
-            <td>Client call</td>
-            <td>2.50</td>
-            <td><span class="badge bg-success">Approved</span></td>
-          </tr>
-          <tr>
-            <td>2025-08-15</td>
-            <td>Server maintenance</td>
-            <td>6.00</td>
-            <td><span class="badge bg-danger">Rejected</span></td>
-          </tr>
+          <%
+            Connection conn = null;
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/amns", "root", "gniharika@4");
+
+                String fetchSql = "SELECT ot_date, reason, hours_worked, status FROM Overtime_Record WHERE emp_id=? ORDER BY ot_date DESC";
+                ps = conn.prepareStatement(fetchSql);
+                ps.setInt(1, emp.getEmpId());
+                rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    String status = rs.getString("status");
+                    String badgeClass = "bg-warning";
+                    if ("Approved".equalsIgnoreCase(status)) badgeClass = "bg-success";
+                    else if ("Rejected".equalsIgnoreCase(status)) badgeClass = "bg-danger";
+          %>
+              <tr>
+                <td><%= rs.getString("ot_date") %></td>
+                <td><%= rs.getString("reason") %></td>
+                <td><%= rs.getDouble("hours_worked") %></td>
+                <td><span class="badge <%= badgeClass %>"><%= status %></span></td>
+              </tr>
+          <%
+                }
+            } catch (Exception e) {
+                out.println("<pre style='color:red'>" + e.getMessage() + "</pre>");
+                e.printStackTrace();
+            } finally {
+                try { if (rs != null) rs.close(); } catch(Exception ex) {}
+                try { if (ps != null) ps.close(); } catch(Exception ex) {}
+                try { if (conn != null) conn.close(); } catch(Exception ex) {}
+            }
+          %>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- Script -->
+  <!-- JS -->
   <script>
     const sidebar=document.getElementById('sidebar');
     const main=document.getElementById('main');
@@ -148,14 +221,6 @@
       main.classList.toggle('collapsed');
       toggleIcon.classList.toggle('fa-bars');
       toggleIcon.classList.toggle('fa-arrow-left');
-    });
-    // Theme Toggle
-    const themeToggle=document.getElementById("theme-toggle");
-    themeToggle.addEventListener("click",()=>{
-      document.body.classList.toggle("dark-mode");
-      const icon=themeToggle.querySelector("i");
-      icon.classList.toggle("fa-moon");
-      icon.classList.toggle("fa-sun");
     });
   </script>
 </body>
