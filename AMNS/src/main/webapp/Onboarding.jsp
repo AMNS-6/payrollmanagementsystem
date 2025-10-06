@@ -64,7 +64,7 @@
   font-size: 16px;
   text-decoration: none;
   color: #0b3c3c;
-  background: #f8f9fa;
+
   border-radius: 6px;
   transition: background 0.2s ease, color 0.2s ease;
 }
@@ -100,7 +100,8 @@
 </head>
 <body>
 
-    <!-- Sidebar -->
+ 
+  <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <button class="toggle-btn" id="toggle-btn">
       <i class="fa-solid fa-arrow-left"></i>
@@ -111,7 +112,7 @@
     </div>
     <div class="menu">
       <a href="hr_dashboard.jsp"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
-      <a href="LoginReport.jsp"><i class="fa-solid fa-clipboard-check"></i> <span>Login Report</span></a>
+      <a href="loginReport.jsp"><i class="fa-solid fa-clipboard-check"></i> <span>Login Report</span></a>
 
       <!-- Employee Management with Submenu -->
       <a data-bs-toggle="collapse" href="#empSubmenu" role="button" aria-expanded="false" aria-controls="empSubmenu">
@@ -122,7 +123,7 @@
         <a href="EmployeeList.jsp"><i class="fa-solid fa-id-card me-2"></i> List Employee</a>
       </div>
 
-      <a href="LeaveApproval.html"><i class="fa-solid fa-user-check"></i> <span>Leave Approval</span></a>
+      <a href="LeaveApproval.jsp"><i class="fa-solid fa-user-check"></i> <span>Leave Approval</span></a>
       <a href="PayRoll.html"><i class="fa-solid fa-money-check-dollar"></i> <span>Payroll</span></a>
       <a href="OtApproval.html"><i class="fa-solid fa-stopwatch me-2"></i> <span>Overtime Approval</span></a>
       <a href="Holiday.html"><i class="fa-solid fa-calendar-days"></i> <span>Holidays</span></a>
@@ -146,21 +147,16 @@
           <!-- Login Credentials -->
           <h6 class="mb-2">Login Credentials</h6>
           <div class="row g-3 mb-4">
-          
             <div class="col-md-4">
               <label class="form-label">Username *</label>
               <input type="text" name="username" class="form-control" required>
             </div>
-            
             <div class="col-md-4">
               <label class="form-label">Password *</label>
-              <input type="password" name="password_hash" class="form-control" required  minlength="6"
-         	title="Password must be at least 6 characters long">
-  			<div class="invalid-feedback">Password must be at least 6 characters long.</div>
+              <input type="password" name="password_hash" class="form-control" required>
             </div>
-            
             <div class="col-md-4">
-		  <label class="form-label">Role</label>
+		  <label class="form-label">Role *</label>
 		  <select name="role" class="form-select">
 		    <option value="">Select</option>
 		    <option value="1">HR</option>
@@ -174,27 +170,12 @@
           <!-- Identity -->
           <h6 class="mb-2">Identity Information</h6>
           <div class="row g-3 mb-4">
-            <div class="col-md-6">
-			  <label class="form-label">First Name *</label>
-			  <input type="text" name="first_name" class="form-control"
-			         required pattern="[A-Za-z]+"
-			         title="Enter alphabets only, e.g., John">
-			  <div class="invalid-feedback">Please enter a valid first name (letters only).</div>
-			</div>
-			
-			<div class="col-md-6">
-			  <label class="form-label">Last Name *</label>
-			  <input type="text" name="last_name" class="form-control"
-			         required pattern="[A-Za-z]+"
-			         title="Enter alphabets only, e.g., Doe">
-			  <div class="invalid-feedback">Please enter a valid last name (letters only).</div>
-			</div>
-			
+            <div class="col-md-6"><label class="form-label">First Name *</label>
+              <input type="text" name="first_name" class="form-control" required></div>
+            <div class="col-md-6"><label class="form-label">Last Name *</label>
+              <input type="text" name="last_name" class="form-control" required></div>
             <div class="col-md-4"><label class="form-label">Date of Birth *</label>
-              <input type="date" name="dob" class="form-control" required title="Enter DOB as (DD/MM/YYYY)">
-            <div class="invalid-feedback">Please enter a valid DOB (DD/MM/YYYY).</div>
-              </div>
-
+              <input type="date" name="dob" class="form-control" required></div>
             <div class="col-md-4"><label class="form-label">Gender *</label>
               <select name="gender" class="form-select" required>
                 <option value="">Select</option><option>Male</option><option>Female</option><option>Other</option>
@@ -227,21 +208,18 @@
                     <div class="col-md-6"><label class="form-label">Email *</label>
                       <input type="email" name="email" class="form-control" required></div>
                     <div class="col-md-6"><label class="form-label">Phone *</label>
-                      <input type="tel" name="phone" class="form-control" required pattern="[0-9]{10}"
-         			title="Enter a 10-digit mobile number without spaces or +91">
-  					<div class="invalid-feedback">Enter a valid 10-digit phone number.</div>
-  					</div>
-                    <div class="col-md-6"><label class="form-label">Address Line 1</label>
+                      <input type="tel" name="phone" class="form-control" pattern="[0-9]{10}" required></div>
+                    <div class="col-md-6"><label class="form-label">Address Line 1 *</label>
                       <input type="text" name="address_line1" class="form-control"></div>
-                    <div class="col-md-6"><label class="form-label">Address Line 2</label>
+                    <div class="col-md-6"><label class="form-label">Address Line 2 *</label>
                       <input type="text" name="address_line2" class="form-control"></div>
-                    <div class="col-md-4"><label class="form-label">City</label>
+                    <div class="col-md-4"><label class="form-label">City *</label>
                       <input type="text" name="city" class="form-control"></div>
-                    <div class="col-md-4"><label class="form-label">State</label>
+                    <div class="col-md-4"><label class="form-label">State *</label>
                       <input type="text" name="state" class="form-control"></div>
-                    <div class="col-md-2"><label class="form-label">Postal Code</label>
+                    <div class="col-md-2"><label class="form-label">Postal Code *</label>
                       <input type="text" name="postal_code" class="form-control"></div>
-                    <div class="col-md-2"><label class="form-label">Country</label>
+                    <div class="col-md-2"><label class="form-label">Country *</label>
                       <input type="text" name="country" class="form-control"></div>
                   </div>
                 </div>
@@ -265,14 +243,12 @@
          data-bs-parent="#employeeAccordion">
       <div class="accordion-body">
                   <div class="row g-3">
-                    <div class="col-md-4"><label class="form-label">Name</label>
+                    <div class="col-md-4"><label class="form-label">Name *</label>
                       <input type="text" name="emergency_name" class="form-control"></div>
-                    <div class="col-md-4"><label class="form-label">Relation</label>
+                    <div class="col-md-4"><label class="form-label">Relation *</label>
                       <input type="text" name="emergency_relation" class="form-control"></div>
-                    <div class="col-md-4"><label class="form-label">Phone</label>
-                      <input type="tel" name="emergency_phone" class="form-control"  pattern="[0-9]{10}"
-         title="Enter a 10-digit mobile number without spaces or +91">
-  <div class="invalid-feedback">Enter a valid 10-digit phone number.</div></div>
+                    <div class="col-md-4"><label class="form-label">Phone *</label>
+                      <input type="tel" name="emergency_phone" class="form-control" pattern="[0-9]{10}"></div>
                   </div>
                 </div>
               </div>
@@ -296,38 +272,39 @@
          data-bs-parent="#employeeAccordion">
       <div class="accordion-body">
                   <div class="row g-3">
-                   
-                      <div class="col-md-4"><label class="form-label">Date of Joining *</label>
-              <input type="date" name="dob" class="form-control"  title="Enter DOJ as (DD/MM/YYYY)">
-            <div class="">Please enter a valid DOJ (DD/MM/YYYY).</div>
-              </div>
+                    <div class="col-md-4"><label class="form-label">Date of Joining *</label>
+                      <input type="date" name="date_of_joining" class="form-control" required></div>
                     <div class="col-md-4"><label class="form-label">Employment Type *</label>
                       <select name="employment_type" class="form-select" required>
                         <option value="">Select</option><option>Permanent</option><option>Contract</option><option>Part-time</option>
                       </select></div>
                     
                       <div class="col-md-4">
-				  		<label class="form-label">Designation</label>
-				  		<select name="designation" class="form-select">
-						<option value="">Select</option><option value="1">Manager</option><option value="2">Analyst</option><option value="3">Designer</option>
-                     	<option value="4">Developer</option> <option value="5">Intern</option> <option value="6">HR</option>
-				 		 </select>
-					</div>
-		            <div class="col-md-4"><label class="form-label">Shift</label>
+		  <label class="form-label">Designation *</label>
+		  <select name="designation" class="form-select">
+		    <option>Select</option>
+		    <option>Developer</option>
+		    <option>Analyst</option>
+		    <option>HR</option>
+		    <option>Manager</option>
+		    <option>Designer</option>
+		    <option>Intern</option>
+		  </select>
+		</div>
+                    <div class="col-md-4"><label class="form-label">Shift *</label>
                       <select name="shift_id" class="form-select">
                         <option value="">Select</option><option value="1">General</option><option value="2">Morning</option><option value="3">Night</option>
                       </select></div>
-                    <div class="col-md-4"><label class="form-label">Salary Structure</label>
+                    <div class="col-md-4"><label class="form-label">Salary Structure *</label>
                       <select name="structure_id" class="form-select">
-                        <option value="">Select</option><option value="1">Manager</option><option value="2">Analyst</option><option value="3">Designer</option>
-                     <option value="4">Developer</option> <option value="5">Intern</option> <option value="6">HR</option>
+                        <option value="">Select</option><option value="1">Developer</option><option value="2">Analyst</option><option value="3">HR</option><option value="4">Manager</option><option value="5">Designer</option><option value="6">Intern</option>
                       </select>
                      </div>
                      
-					   <div class="col-md-4"><label class="form-label">Teams</label>
-                      <select  name="team_name" class="form-select">
-                      <option value="">Select</option><option value="1"> Software Development</option><option value="2">Quality Assurance</option><option value="3">Human Resources</option>
-                      </select>
+					   <div class="col-md-4"><label class="form-label">Team ID *</label>
+					   	<select name="team_id" class="form-select">
+					   		<option value="">Select</option><option value="1">Software Development</option><option value="2">Quality Assurance</option><option value="3">Human Resources</option><option value="4">Finance & Accounts</option><option value="5">Operations</option><option value="6">Sales & Marketing</option>
+                        </select>
                       </div>
 					
                   </div>
@@ -352,35 +329,18 @@
          data-bs-parent="#employeeAccordion">
       <div class="accordion-body">
                   <div class="row g-3">
-                    <div class="col-md-6"><label class="form-label">Bank Name</label>
+                    <div class="col-md-6"><label class="form-label">Bank Name *</label>
                       <input type="text" name="bank_name" class="form-control"></div>
-                    <div class="col-md-6"><label class="form-label">Account Number</label>
+                    <div class="col-md-6"><label class="form-label">Account Number *</label>
                       <input type="text" name="account_number" class="form-control"></div>
-                    <div class="col-md-6"><label class="form-label">IFSC Code</label>
+                    <div class="col-md-6"><label class="form-label">IFSC Code *</label>
                       <input type="text" name="ifsc_code" class="form-control"></div>
-                    <div class="col-md-6">
-					  <label class="form-label">UAN Number *</label>
-					  <input type="text" name="uan_number" class="form-control"
-					         required pattern="[0-9]{12}"
-					         title="Enter 12-digit Universal Account Number">
-					  <div class="invalid-feedback">Enter a valid 12-digit UAN number.</div>
-					</div>
-					
-					<div class="col-md-6">
-					  <label class="form-label">PAN Number *</label>
-					  <input type="text" name="pan_number" class="form-control"
-					         pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
-					         title="Enter 10-character PAN (e.g., ABCDE1234F)">
-					  <div class="invalid-feedback">Enter a valid PAN number (ABCDE1234F).</div>
-					</div>
-					
-					<div class="col-md-6">
-					  <label class="form-label">Aadhar Number *</label>
-					  <input type="text" name="aadhar_number" class="form-control"
-					         pattern="[0-9]{12}"
-					         title="Enter 12-digit Aadhaar number">
-					  <div class="invalid-feedback">Enter a valid 12-digit Aadhaar number.</div>
-					</div>
+                    <div class="col-md-6"><label class="form-label">UAN Number *</label>
+                      <input type="text" name="uan_number" class="form-control" ></div>
+                    <div class="col-md-6"><label class="form-label">PAN Number *</label>
+                      <input type="text" name="pan_number" class="form-control"></div>
+                    <div class="col-md-6"><label class="form-label">Aadhar Number *</label>
+                      <input type="text" name="aadhar_number" class="form-control"></div>
                   </div>
                 </div>
               </div>
