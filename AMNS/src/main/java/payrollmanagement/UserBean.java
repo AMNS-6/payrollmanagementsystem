@@ -2,11 +2,13 @@ package payrollmanagement;
 
 public class UserBean {
     private int userId;
+    private int empId;
     private String username;
     private String passwordHash;
     private String role;      // "HR" or "EMPLOYEE"
     private int isActive;
     private String lastLogin;
+    
 
     // --- Getters & Setters ---
     public int getUserId() {
@@ -15,8 +17,15 @@ public class UserBean {
     public void setUserId(int userId) {
     	this.userId = userId; 
     	}
+    
 
-    public String getUsername() {
+    public int getEmpId() {
+		return empId;
+	}
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+	public String getUsername() {
     	return username; 
     	}
     public void setUsername(String username) {

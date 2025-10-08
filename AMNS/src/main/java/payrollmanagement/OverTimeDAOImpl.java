@@ -44,9 +44,9 @@ public class OverTimeDAOImpl implements OverTimeDAO {
              CallableStatement cs = con.prepareCall(sql)) {
 
             cs.setInt(1, bean.getOtId());
-            cs.setInt(2, bean.getApproverEmpId()); // You should add approverEmpId in bean if not already
-            cs.setString(3, bean.getStatus()); // "Approved" or "Rejected"
-            cs.setString(4, bean.getReason()); // remarks
+            cs.setInt(2, bean.getApproverEmpId()); // ✅ HR/Manager empId
+            cs.setString(3, bean.getStatus());     // "Approved" or "Rejected"
+            cs.setString(4, bean.getReason());     // Remarks
 
             try (ResultSet rs = cs.executeQuery()) {
                 if (rs.next()) {

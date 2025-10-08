@@ -159,7 +159,7 @@
   <a href="emp_dashboard.jsp"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
   <a href="EmpProfile.jsp"><i class="fa-solid fa-user"></i> <span>Profile</span></a>
   <a href="attendance.jsp"><i class="fa-solid fa-calendar-check"></i> <span>Attendance</span></a>
-  <a href="LeaveRequest.html"><i class="fa-solid fa-plane-departure"></i> <span>Leave Request</span></a>
+  <a href="LeaveRequest.jsp"><i class="fa-solid fa-plane-departure"></i> <span>Leave Request</span></a>
   <a href="EmpPaySlip.html"><i class="fa-solid fa-file-invoice-dollar"></i> <span>My Payslips</span></a>
   <a href="OtRequest.jsp"><i class="fa-solid fa-stopwatch me-2"></i> <span>OT Request</span></a>
 </div>
@@ -176,7 +176,11 @@
       <h2>Welcome Employee!!</h2>
       <div class="d-flex align-items-center">
         <div class="top-btn" id="theme-toggle"><i class="fa-solid fa-moon"></i></div>
-        <div class="top-btn"><i class="fa-solid fa-bell"></i></div>
+       <div>
+        <a href="notifications.jsp" class="top-btn"style="color: black;" title="View Notifications">
+  		<i class="fa-solid fa-bell"></i>
+		</a>
+        </div>
         <div class="top-btn"><i class="fa-solid fa-user"></i></div>
       </div>
     </div>
@@ -396,11 +400,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		  const punchedOut = localStorage.getItem(punchOutKey);
 
 		  if (punchedIn && !punchedOut) {
-		    // ⏱ user is currently punched in
+		    // user is currently punched in
 		    punchInBtn.disabled = true;
 		    punchOutBtn.disabled = false;
 		  } else {
-		    // 🛑 user not punched in (either never punched in or already punched out)
+		    // user not punched in (either never punched in or already punched out)
 		    punchInBtn.disabled = false;
 		    punchOutBtn.disabled = true;
 		  }

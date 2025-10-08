@@ -5,7 +5,7 @@ import java.util.Date;
 public class OverTimeBean {
     private int otId;   // matches Overtime_Record.ot_id
     private int empId;
-    private int approverEmpId;
+    private int  ApproverEmpId;
     private int otPolicyId;
 	private Date otDate;
     private String reason;
@@ -26,10 +26,15 @@ public class OverTimeBean {
 	public void setEmpId(int empId) {
 		this.empId = empId;
 	}
-	public int getApproverEmpId() { return approverEmpId; }
-	public void setApproverEmpId(int approverEmpId) { this.approverEmpId = approverEmpId; }
+	
 
-    public Date getOtDate() { return otDate; }
+    public int getApproverEmpId() {
+		return ApproverEmpId;
+	}
+	public void setApproverEmpId(int approverEmpId) {
+		ApproverEmpId = approverEmpId;
+	}
+	public Date getOtDate() { return otDate; }
     public void setOtDate(Date otDate) { this.otDate = otDate; }
 
     public String getReason() { return reason; }

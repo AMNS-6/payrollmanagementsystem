@@ -134,25 +134,26 @@ body {
 <body>
 
 <!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-  <button class="toggle-btn" id="toggle-btn">
-    <i class="fa-solid fa-arrow-left"></i>
-  </button>
-  <div class="logo-container">
-    <div class="logo-text"><img src="images/logo.png" alt="logo"></div>
-    <div class="logo-tagline">Your Punctual Partner for Workforce<br>Management</div>
-  </div>
-  <div class="menu">
-    <a href="emp_dashboard.jsp"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
-    <a href="EmpProfile.html"><i class="fa-solid fa-user"></i> <span>Profile</span></a>
-    <a href="attendance.jsp"><i class="fa-solid fa-calendar-check"></i> <span>Attendance</span></a>
-    <a href="LeaveRequest.jsp" class="active"><i class="fa-solid fa-plane-departure"></i> <span>Leave Request</span></a>
-    <a href="EmpPaySlip.html"><i class="fa-solid fa-file-invoice-dollar"></i> <span>My Payslips</span></a>
-    <a href="OtRequest.html"><i class="fa-solid fa-stopwatch"></i> <span>OT Request</span></a>
-  </div>
-  <a href="#" class="logout"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></a>
+  <div class="sidebar" id="sidebar">
+    <button class="toggle-btn" id="toggle-btn"><i class="fa-solid fa-arrow-left"></i></button>
+    <div class="logo-container">
+      <div class="logo-text"><img src="images/logo.png"></div>
+      <div class="logo-tagline">Your Punctual Partner for Workforce<br>Management</div>
+    </div>
+    <div class="menu">
+  <a href="emp_dashboard.jsp"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
+  <a href="EmpProfile.jsp"><i class="fa-solid fa-user"></i> <span>Profile</span></a>
+  <a href="attendance.jsp"><i class="fa-solid fa-calendar-check"></i> <span>Attendance</span></a>
+  <a href="LeaveRequest.jsp"><i class="fa-solid fa-plane-departure"></i> <span>Leave Request</span></a>
+  <a href="EmpPaySlip.html"><i class="fa-solid fa-file-invoice-dollar"></i> <span>My Payslips</span></a>
+  <a href="OtRequest.jsp"><i class="fa-solid fa-stopwatch me-2"></i> <span>OT Request</span></a>
 </div>
 
+
+    <a href="#" class="logout" id="logoutBtn">
+  <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
+</a>
+  </div>
 <!-- Main Content -->
 <div class="main-content" id="main">
 <div class="leave-container">
@@ -231,132 +232,132 @@ body {
 </div>
 
 <!-- Applied Leaves -->
-		<div id="appliedLeavesSection" class="d-none">
-		<h5 class="fw-bold mb-3">Previously Applied Leaves</h5>
-		<table class="table table-bordered table-striped">
-		<thead class="head">
-		<tr>
-		<th>Emp ID</th><th>Name</th><th>Leave Type</th><th>From</th><th>F/S half</th>
-		<th>To</th><th>F/S half</th><th>No of days</th><th>Credit days</th>
-		<th>Reason</th><th>Status</th>
-		</tr>
-		</thead>
-		<tbody>
-		<% if(appliedLeaves != null && !appliedLeaves.isEmpty()){
-		    for(LeaveRequestBean l : appliedLeaves){ %>
-		<tr>
-		<td><%= l.getEmpId() %></td>
-		<td><%= l.getName() %></td>
-		<td><%= l.getLeaveType() %></td>
-		<td><%= l.getFromDate() %></td>
-		<td><%= l.getFromHalf() %></td>
-		<td><%= l.getToDate() %></td>
-		<td><%= l.getToHalf() %></td>
-		<td><%= l.getNoOfDays() %></td>
-		<td><%= l.getCreditDays() %></td>
-		<td><%= l.getReason() %></td>
-		<td><%= l.getStatus() %></td>
-		</tr>
-		<% }} else { %>
-		<tr><td colspan="11" class="text-center">No applied leaves found.</td></tr>
-		<% } %>
-		</tbody>
-		</table>
-		</div>
-		
-		</div>
-		
-		<script>
-		// Sidebar toggle
-		const sidebar = document.getElementById('sidebar');
-		const main = document.getElementById('main');
-		const toggleBtn = document.getElementById('toggle-btn');
-		const toggleIcon = toggleBtn.querySelector('i');
-		
-		toggleBtn.addEventListener('click', () => {
-		  sidebar.classList.toggle('collapsed');
-		  main.classList.toggle('collapsed');
-		
-		  if(sidebar.classList.contains('collapsed')){
-		    toggleIcon.classList.remove('fa-arrow-left');
-		    toggleIcon.classList.add('fa-bars');
-		  } else {
-		    toggleIcon.classList.remove('fa-bars');
-		    toggleIcon.classList.add('fa-arrow-left');
-		  }
-		});
-		
-		// Toggle New Leave / Applied Leaves
-		const btnNew = document.getElementById("btnNewLeave");
-		const btnApplied = document.getElementById("btnAppliedLeaves");
-		const newSection = document.getElementById("newLeaveSection");
-		const appliedSection = document.getElementById("appliedLeavesSection");
-		
-		btnNew.addEventListener("click", () => {
-		    btnNew.classList.add("active");
-		    btnApplied.classList.remove("active");
-		    newSection.classList.remove("d-none");
-		    appliedSection.classList.add("d-none");
-		});
-		
-		btnApplied.addEventListener("click", () => {
-		    btnApplied.classList.add("active");
-		    btnNew.classList.remove("active");
-		    appliedSection.classList.remove("d-none");
-		    newSection.classList.add("d-none");
-		});
-		
-		// Total days calculation
-		function calculateDays(){
-		    let from = document.getElementById("fromDate").value;
-		    let to = document.getElementById("toDate").value;
-		    let fromHalf = document.getElementById("fromHalf").value;
-		    let toHalf = document.getElementById("toHalf").value;
-		
-		    if(!from || !to) {
-		        document.getElementById("totalDays").textContent = 0;
-		        document.getElementById("hiddenTotalDays").value = 0;
-		        return;
-		    }
-		
-		    let start = new Date(from);
-		    let end = new Date(to);
-		    if(end < start){
-		        alert("To Date cannot be before From Date");
-		        document.getElementById("toDate").value = "";
-		        document.getElementById("totalDays").textContent = 0;
-		        document.getElementById("hiddenTotalDays").value = 0;
-		        return;
-		    }
-		
-		    let diff = (end - start) / (1000*60*60*24) + 1;
-		
-		    if(diff === 1){
-		        if(fromHalf === "Second Half" && toHalf === "First Half") diff = 0;
-		        else if(fromHalf === "Second Half" && toHalf === "Second Half") diff = 0.5;
-		        else if(fromHalf === "First Half" && toHalf === "First Half") diff = 0.5;
-		    } else {
-		        if(fromHalf === "Second Half") diff -= 0.5;
-		        if(toHalf === "First Half") diff -= 0.5;
-		    }
-		
-		    document.getElementById("totalDays").textContent = diff;
-		    document.getElementById("hiddenTotalDays").value = diff;
-		}
-		
-		["fromDate", "toDate", "fromHalf", "toHalf"].forEach(id => {
-		    document.getElementById(id).addEventListener("change", calculateDays);
-		});
-		
-		// Show Available Credit dynamically
-		const leaveRadios = document.querySelectorAll('.leave-radio');
-		const creditSpan = document.getElementById('leaveCredit');
-		
-		leaveRadios.forEach(radio => {
-		    radio.addEventListener('change', () => {
-		        creditSpan.textContent = radio.getAttribute('data-credit');
-		    });
-		});
-		</script>
-		</body>
-		</html>
+<div id="appliedLeavesSection" class="d-none">
+<h5 class="fw-bold mb-3">Previously Applied Leaves</h5>
+<table class="table table-bordered table-striped">
+<thead class="head">
+<tr>
+<th>Emp ID</th><th>Name</th><th>Leave Type</th><th>From</th><th>F/S half</th>
+<th>To</th><th>F/S half</th><th>No of days</th><th>Credit days</th>
+<th>Reason</th><th>Status</th>
+</tr>
+</thead>
+<tbody>
+<% if(appliedLeaves != null && !appliedLeaves.isEmpty()){
+    for(LeaveRequestBean l : appliedLeaves){ %>
+<tr>
+<td><%= l.getEmpId() %></td>
+<td><%= l.getName() %></td>
+<td><%= l.getLeaveType() %></td>
+<td><%= l.getFromDate() %></td>
+<td><%= l.getFromHalf() %></td>
+<td><%= l.getToDate() %></td>
+<td><%= l.getToHalf() %></td>
+<td><%= l.getNoOfDays() %></td>
+<td><%= l.getCreditDays() %></td>
+<td><%= l.getReason() %></td>
+<td><%= l.getStatus() %></td>
+</tr>
+<% }} else { %>
+<tr><td colspan="11" class="text-center">No applied leaves found.</td></tr>
+<% } %>
+</tbody>
+</table>
+</div>
+
+</div>
+
+<script>
+// Sidebar toggle
+const sidebar = document.getElementById('sidebar');
+const main = document.getElementById('main');
+const toggleBtn = document.getElementById('toggle-btn');
+const toggleIcon = toggleBtn.querySelector('i');
+
+toggleBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('collapsed');
+  main.classList.toggle('collapsed');
+
+  if(sidebar.classList.contains('collapsed')){
+    toggleIcon.classList.remove('fa-arrow-left');
+    toggleIcon.classList.add('fa-bars');
+  } else {
+    toggleIcon.classList.remove('fa-bars');
+    toggleIcon.classList.add('fa-arrow-left');
+  }
+});
+
+// Toggle New Leave / Applied Leaves
+const btnNew = document.getElementById("btnNewLeave");
+const btnApplied = document.getElementById("btnAppliedLeaves");
+const newSection = document.getElementById("newLeaveSection");
+const appliedSection = document.getElementById("appliedLeavesSection");
+
+btnNew.addEventListener("click", () => {
+    btnNew.classList.add("active");
+    btnApplied.classList.remove("active");
+    newSection.classList.remove("d-none");
+    appliedSection.classList.add("d-none");
+});
+
+btnApplied.addEventListener("click", () => {
+    btnApplied.classList.add("active");
+    btnNew.classList.remove("active");
+    appliedSection.classList.remove("d-none");
+    newSection.classList.add("d-none");
+});
+
+// Total days calculation
+function calculateDays(){
+    let from = document.getElementById("fromDate").value;
+    let to = document.getElementById("toDate").value;
+    let fromHalf = document.getElementById("fromHalf").value;
+    let toHalf = document.getElementById("toHalf").value;
+
+    if(!from || !to) {
+        document.getElementById("totalDays").textContent = 0;
+        document.getElementById("hiddenTotalDays").value = 0;
+        return;
+    }
+
+    let start = new Date(from);
+    let end = new Date(to);
+    if(end < start){
+        alert("To Date cannot be before From Date");
+        document.getElementById("toDate").value = "";
+        document.getElementById("totalDays").textContent = 0;
+        document.getElementById("hiddenTotalDays").value = 0;
+        return;
+    }
+
+    let diff = (end - start) / (1000*60*60*24) + 1;
+
+    if(diff === 1){
+        if(fromHalf === "Second Half" && toHalf === "First Half") diff = 0;
+        else if(fromHalf === "Second Half" && toHalf === "Second Half") diff = 0.5;
+        else if(fromHalf === "First Half" && toHalf === "First Half") diff = 0.5;
+    } else {
+        if(fromHalf === "Second Half") diff -= 0.5;
+        if(toHalf === "First Half") diff -= 0.5;
+    }
+
+    document.getElementById("totalDays").textContent = diff;
+    document.getElementById("hiddenTotalDays").value = diff;
+}
+
+["fromDate", "toDate", "fromHalf", "toHalf"].forEach(id => {
+    document.getElementById(id).addEventListener("change", calculateDays);
+});
+
+// Show Available Credit dynamically
+const leaveRadios = document.querySelectorAll('.leave-radio');
+const creditSpan = document.getElementById('leaveCredit');
+
+leaveRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+        creditSpan.textContent = radio.getAttribute('data-credit');
+    });
+});
+</script>
+</body>
+</html>

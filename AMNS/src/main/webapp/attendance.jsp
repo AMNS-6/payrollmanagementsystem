@@ -134,7 +134,7 @@
 </head>
 <body>
 
-  <!-- Sidebar -->
+<!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <button class="toggle-btn" id="toggle-btn"><i class="fa-solid fa-arrow-left"></i></button>
     <div class="logo-container">
@@ -143,9 +143,9 @@
     </div>
     <div class="menu">
   <a href="emp_dashboard.jsp"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
-  <a href="EmpProfile.html"><i class="fa-solid fa-user"></i> <span>Profile</span></a>
+  <a href="EmpProfile.jsp"><i class="fa-solid fa-user"></i> <span>Profile</span></a>
   <a href="attendance.jsp"><i class="fa-solid fa-calendar-check"></i> <span>Attendance</span></a>
-  <a href="LeaveRequest.html"><i class="fa-solid fa-plane-departure"></i> <span>Leave Request</span></a>
+  <a href="LeaveRequest.jsp"><i class="fa-solid fa-plane-departure"></i> <span>Leave Request</span></a>
   <a href="EmpPaySlip.html"><i class="fa-solid fa-file-invoice-dollar"></i> <span>My Payslips</span></a>
   <a href="OtRequest.jsp"><i class="fa-solid fa-stopwatch me-2"></i> <span>OT Request</span></a>
 </div>
@@ -155,12 +155,6 @@
   <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
 </a>
   </div>
-
-
-<a href="#" class="logout" id="logoutBtn">
-  <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
-</a>
-</div>
 
   <!-- Main Content -->
   <div class="main">

@@ -58,28 +58,38 @@
   </style>
 </head>
 <body>
-
- <!-- Sidebar -->
+  <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <button class="toggle-btn" id="toggle-btn"><i class="fa-solid fa-arrow-left"></i></button>
+    <button class="toggle-btn" id="toggle-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
     <div class="logo-container">
       <div class="logo-text"><img src="images/logo.png"></div>
       <div class="logo-tagline">Your Punctual Partner for Workforce<br>Management</div>
     </div>
     <div class="menu">
       <a href="hr_dashboard.jsp"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
-      <a href="loginReport.jsp"><i class="fa-solid fa-clipboard-check"></i> <span>Login Report</span></a>
-      <a data-bs-toggle="collapse" href="#empSubmenu"><i class="fa-solid fa-users-gear me-2"></i> <span>Employee Management</span></a>
+      <a href="LoginReport.jsp"><i class="fa-solid fa-clipboard-check"></i> <span>Login Report</span></a>
+
+      <!-- Employee Management with Submenu -->
+      <a data-bs-toggle="collapse" href="#empSubmenu" role="button" aria-expanded="false" aria-controls="empSubmenu">
+        <i class="fa-solid fa-users-gear me-2"></i> <span>Employee Management</span>
+      </a>
       <div class="collapse submenu" id="empSubmenu">
         <a href="Onboarding.jsp"><i class="fa-solid fa-user-plus me-2"></i> Onboarding Employee</a>
         <a href="EmployeeList.jsp"><i class="fa-solid fa-id-card me-2"></i> List Employee</a>
       </div>
+
       <a href="LeaveApproval.jsp"><i class="fa-solid fa-user-check"></i> <span>Leave Approval</span></a>
-      <a href="PayRoll.jsp"><i class="fa-solid fa-money-check-dollar"></i> <span>Payroll</span></a>
+      <a href="PayRoll.html"><i class="fa-solid fa-money-check-dollar"></i> <span>Payroll</span></a>
       <a href="OtApproval.jsp"><i class="fa-solid fa-stopwatch me-2"></i> <span>Overtime Approval</span></a>
       <a href="Holiday.jsp"><i class="fa-solid fa-calendar-days"></i> <span>Holidays</span></a>
     </div>
-    <a href="logout.jsp" class="logout"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></a>
+
+    <!-- Logout Button -->
+   <a href="#" class="logout" id="logoutBtn">
+  <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
+</a>
   </div>
 <!-- Main Content -->
 <main class="content" id="main">

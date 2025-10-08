@@ -80,7 +80,7 @@
 </head>
 <body>
 
-  <!-- Sidebar -->
+   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <button class="toggle-btn" id="toggle-btn">
       <i class="fa-solid fa-arrow-left"></i>
@@ -102,10 +102,10 @@
         <a href="EmployeeList.jsp"><i class="fa-solid fa-id-card me-2"></i> List Employee</a>
       </div>
 
-      <a href="LeaveApproval.html"><i class="fa-solid fa-user-check"></i> <span>Leave Approval</span></a>
+      <a href="LeaveApproval.jsp"><i class="fa-solid fa-user-check"></i> <span>Leave Approval</span></a>
       <a href="PayRoll.html"><i class="fa-solid fa-money-check-dollar"></i> <span>Payroll</span></a>
-      <a href="OtApproval.html"><i class="fa-solid fa-stopwatch me-2"></i> <span>Overtime Approval</span></a>
-      <a href="Holiday.html"><i class="fa-solid fa-calendar-days"></i> <span>Holidays</span></a>
+      <a href="OtApproval.jsp"><i class="fa-solid fa-stopwatch me-2"></i> <span>Overtime Approval</span></a>
+      <a href="Holiday.jsp"><i class="fa-solid fa-calendar-days"></i> <span>Holidays</span></a>
     </div>
 
     <!-- Logout Button -->

@@ -100,7 +100,6 @@
 </head>
 <body>
 
- 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <button class="toggle-btn" id="toggle-btn">
@@ -112,7 +111,7 @@
     </div>
     <div class="menu">
       <a href="hr_dashboard.jsp"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
-      <a href="loginReport.jsp"><i class="fa-solid fa-clipboard-check"></i> <span>Login Report</span></a>
+      <a href="LoginReport.jsp"><i class="fa-solid fa-clipboard-check"></i> <span>Login Report</span></a>
 
       <!-- Employee Management with Submenu -->
       <a data-bs-toggle="collapse" href="#empSubmenu" role="button" aria-expanded="false" aria-controls="empSubmenu">
@@ -125,8 +124,8 @@
 
       <a href="LeaveApproval.jsp"><i class="fa-solid fa-user-check"></i> <span>Leave Approval</span></a>
       <a href="PayRoll.html"><i class="fa-solid fa-money-check-dollar"></i> <span>Payroll</span></a>
-      <a href="OtApproval.html"><i class="fa-solid fa-stopwatch me-2"></i> <span>Overtime Approval</span></a>
-      <a href="Holiday.html"><i class="fa-solid fa-calendar-days"></i> <span>Holidays</span></a>
+      <a href="OtApproval.jsp"><i class="fa-solid fa-stopwatch me-2"></i> <span>Overtime Approval</span></a>
+      <a href="Holiday.jsp"><i class="fa-solid fa-calendar-days"></i> <span>Holidays</span></a>
     </div>
 
     <!-- Logout Button -->
@@ -134,7 +133,6 @@
   <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
 </a>
   </div>
-  
   <!-- Main Content -->
   <main class="content" id="main">
     <div class="card">
