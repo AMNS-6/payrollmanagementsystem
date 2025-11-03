@@ -1,6 +1,6 @@
 <%@ page import="payrollmanagement.*" %>
 <%@ page import="java.util.*" %>
-<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+
 <%
     // Step 1: Verify HR/Manager session
     UserBean user = (UserBean) session.getAttribute("user");

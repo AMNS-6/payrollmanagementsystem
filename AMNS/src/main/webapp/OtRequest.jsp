@@ -21,7 +21,7 @@
     EmployeeBean emp = empDao.getEmployeeById(user.getUserId());
 
     if (emp == null) {
-        out.println("<h3 style='color:red'>⚠ No employee record found for " + user.getUsername() + "</h3>");
+        out.println("<h3 style='color:red'> No employee record found for " + user.getUsername() + "</h3>");
         return;
     }
 
@@ -45,12 +45,12 @@
             int newId = otDao.applyOvertime(ot);
 
             // ✅ Save success message in session and redirect
-            session.setAttribute("ot_message", "✅ Overtime request submitted successfully (Request ID: " + newId + ")");
+            session.setAttribute("ot_message", "Overtime request submitted successfully (Request ID: " + newId + ")");
             response.sendRedirect("OtRequest.jsp");
             return;
 
         } catch (Exception e) {
-            session.setAttribute("ot_message", "❌ Error submitting overtime: " + e.getMessage());
+            session.setAttribute("ot_message", "Error submitting overtime: " + e.getMessage());
             response.sendRedirect("OtRequest.jsp");
             return;
         }

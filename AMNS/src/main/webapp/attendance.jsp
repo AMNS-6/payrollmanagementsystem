@@ -123,7 +123,7 @@
       display:flex; align-items:center; justify-content:center;
       z-index:10;
     }
-        .main { margin-left:200px; padding:20px; width: calc(100% - 300px);}
+        .main { margin-left:300px; padding:20px; width: calc(100% - 300px);}
     .table th { background-color: #f1f3f4; }
     .clock-time { color: #48dbb7; font-weight: bold; }
     .duration { color: #6fc149; font-size:0.9rem; margin:0 8px;}
@@ -170,7 +170,7 @@
           <thead>
             <tr>
               <th>Date</th>
-              <th>Clock-in and Out</th>
+              <th>Punch-in and Out</th>
               <th>Overtime (hrs)</th>
             </tr>
           </thead>

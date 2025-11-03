@@ -40,47 +40,93 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-      body {
-        background: #f4f6f9;
-        transition: all 0.3s ease;
-      }
-      body.dark-mode { background: #1e1e2f; color: #e5e5e5; }
-      body.dark-mode .card { background: #2b2b3c; color: #fff; }
-      body.dark-mode .table th { background: #39bfbf !important; }
+         :root { --accent: #39bfbf; --danger: #dc3545; --light: #f8f9fa; }
+    body { background: var(--light); font-family: "Segoe UI", Arial, sans-serif; margin:0; }
+    .card { border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.08); border:0; }
+    .card-header { background:var(--accent); color:#fff; font-weight:600; }
+    .btn-accent { background:var(--accent); color:#fff; border:0; }
+    .btn-accent:hover { background:#2ea1a1; }
+    .accordion-button:not(.collapsed) { background: rgba(57,191,191,0.1); color: #0b3c3c; }
+    .was-validated .form-control:invalid,
+    .was-validated .form-select:invalid { border: 2px solid var(--danger); }
+        /* Sidebar */
+    .sidebar {
+      height:100vh; background:#39bfbf; color:white;
+      position:fixed; top:0; left:0; width:300px;
+      padding-top:30px; box-sizing:border-box;
+      display:flex; flex-direction:column; justify-content:space-between;
+      transition:width 0.3s ease; overflow:hidden; text-align:center;
+    }
+    .sidebar.collapsed { width:70px; }
+    .logo-text img { width:120px; height:auto; }
+    .logo-tagline { font-size:12px; color:#fff; margin-top:6px; font-weight:400; }
+    .sidebar.collapsed .logo-text, .sidebar.collapsed .logo-tagline { display:none; }
+    .sidebar a {
+      display:flex; align-items:center; gap:12px; color:#fff;
+      padding:14px 20px; text-decoration:none; font-size:16px;
+      margin:8px 0; border-radius:6px;
+    }
+    .sidebar a:hover { background:#12b5b5; }
+    .sidebar.collapsed a { justify-content:center; gap:0; padding:14px; }
+    .sidebar.collapsed a span { display:none; }
+    .logout { background:#39bfbf; margin:15px; padding:10px 16px; border-radius:6px; text-align:center; }
+    .logout:hover { background:#1a252f; }
+        .logout { background: #39bfbf; margin: 15px; border-radius: 6px; text-align: center; padding: 10px 16px; }
+    .logout:hover { background: #1a252f; }
+    .toggle-btn { position: absolute; top: 15px; left: 15px; background: #39bfbf; border-radius: 50%; width: 40px; 
+      height: 40px; border: none; color: #fff; font-size: 18px; cursor: pointer; display: flex; align-items: center; 
+      justify-content: center; }
+    .content { margin-left: 300px; padding: 20px; transition: margin-left 0.3s ease; }
+    .content.collapsed { margin-left: 70px; }
+    /* Accordion header */
+.accordion-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  font-weight: 400;
+  font-size: 16px;
+  text-decoration: none;
+  color: #0b3c3c;
 
-      /* Sidebar */
-      .sidebar { height: 100vh; background: #39bfbf; color: white; position: fixed; top:0; left:0; width:300px; padding-top:30px; transition: width 0.3s ease; overflow:hidden; }
-      .sidebar.collapsed { width:70px; }
-      .sidebar a { display:flex; align-items:center; gap:12px; color:white; padding:12px 20px; text-decoration:none; border-radius:6px; margin:8px 0; }
-      .sidebar a:hover { background:#12b5b5; }
-      .sidebar.collapsed a span { display:none; }
-      .sidebar.collapsed a { justify-content:center; gap:0; }
+  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
 
-      .main { margin-left:300px; padding:20px; transition: margin-left 0.3s; }
-      .main.collapsed { margin-left:70px; }
+/* Hover effect */
+.accordion-toggle:hover {
+  background: rgba(57, 191, 191, 0.1);
+  color: #39bfbf;
+}
 
-      .table th { background:#39bfbf; color:white; }
+/* Arrow */
+.accordion-arrow {
+  transition: transform 0.3s ease;
+  font-size: 14px;
+}
 
-      /* Toggle button */
-      .toggle-btn {
-        position: absolute; top: 15px; left: 15px;
-        background: #39bfbf; border-radius: 50%; width: 40px; height: 40px;
-        border: none; color: #fff; font-size: 18px;
-        display:flex; align-items:center; justify-content:center;
-        cursor:pointer; z-index:10;
-      }
-      .toggle-btn:hover { background:#12b5b5; }
+/* Rotate arrow when expanded */
+.accordion-toggle[aria-expanded="true"] .accordion-arrow {
+  transform: rotate(180deg);
+}
 
-      /* Top buttons */
-      .top-btn { width:40px; height:40px; border-radius:50%; background:#e5e7eb;
-        display:flex; align-items:center; justify-content:center; margin-left:10px; cursor:pointer; }
-      .top-btn i { font-size:18px; }
-      body.dark-mode .top-btn { background:#444; }
+/* Accordion body styling */
+.accordion-body {
+  padding: 16px;
+ 
+  border: 1px solid #eee;
+  border-radius: 6px;
+  margin-top: 6px;
+}
+    .main { 
+    margin-left: 300px; padding: 20px; transition: margin-left 0.3s ease, width 0.3s ease; width: calc(100% - 300px); 
+    }
+    
+    
     </style>
 </head>
 <body>
-
-   <!-- Sidebar -->
+<!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <button class="toggle-btn" id="toggle-btn">
       <i class="fa-solid fa-arrow-left"></i>
@@ -117,11 +163,15 @@
   <!-- Main -->
   <div class="main" id="main">
     <!-- Top Navbar -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2><i class="fa-solid fa-clipboard-list"></i> Login Report</h2>
+     <div class="d-flex justify-content-between align-items-center mb-4">
+
       <div class="d-flex align-items-center">
-        <div class="top-btn" id="theme-toggle"><i class="fa-solid fa-moon"></i></div>
-        <div class="top-btn"><i class="fa-solid fa-bell"></i></div>
+        <div class="top-btn" id="theme-toggle"><i class="fa-solid d"></i></div>
+        <div>
+        <a href="notifications.jsp" class="top-btn"style="color: black;" title="View Notifications">
+  		<i class="fa-solid fa-bell"></i>
+		</a>
+        </div>
         <div class="top-btn"><i class="fa-solid fa-user"></i></div>
       </div>
     </div>
